@@ -23,7 +23,8 @@ class Mentor:
         self.courses_attached = []
 
 
-# class Lecturer(Mentor):
+class Lecturer(Mentor):
+    pass
 
 
 class Reviewer(Mentor):
@@ -42,6 +43,8 @@ student_1.courses_in_progress += ['Введение в программиров�
 student_1.courses_in_progress += ['Python']
 student_1.courses_in_progress += ['Git']
 student_1.add_finished_courses('Введение в программирование')
+
+lecturer_1 = Lecturer('Some', 'Body')
 
 reviewer_1 = Reviewer('Some', 'Buddy')
 reviewer_1.courses_attached += ['Python']
