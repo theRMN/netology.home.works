@@ -7,6 +7,14 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+    def __str__(self):
+        name = 'Имя: ' + self.name
+        surname = '\nФамилия: ' + self.surname
+        avg = '\nСредняя оценка за домашние задания ' + str(self.calculating_av_grade())
+        courses_in_progress = '\nКурсы в процессе изучения: ' + ', '.join(self.courses_in_progress)
+        finished_courses = '\nЗавершенные курсы: ' + ', '.join(self.finished_courses)
+        return name + surname + avg + courses_in_progress + finished_courses
+
     def add_courses_in_progress(self, course_name):
         self.courses_in_progress.append(course_name)
 
@@ -54,6 +62,12 @@ class Lecturer(Mentor):
         Mentor.__init__(self, *args)
         self.grades = {}
 
+    def __str__(self):
+        name = 'Имя: ' + self.name
+        surname = '\nФамилия: ' + self.surname
+        avg = '\nСредняя оценка за лекции: ' + str(self.calculating_av_grade())
+        return name + surname + avg
+
     def calculating_av_grade(self):
         avg_list = []
 
@@ -75,6 +89,11 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
 
+    def __str__(self):
+        name = 'Имя: ' + self.name
+        surname = '\nФамилия: ' + self.surname
+        return name + surname
+
 
 student_1 = Student('Roy', 'Eman', 'male')
 student_1.add_courses_in_progress('Введение в программирование')
@@ -93,7 +112,6 @@ lecturer_1.add_courses_attached('Python')
 
 lecturer_2 = Lecturer('Some', 'Body')
 lecturer_2.add_courses_attached('Git')
-
 
 reviewer_1 = Reviewer('Some', 'Buddy')
 reviewer_1.add_courses_attached('Python')
@@ -117,10 +135,10 @@ student_2.rate_lectures(lecturer_1, 'Python', 'lecture_2', 2)
 student_2.rate_lectures(lecturer_1, 'Python', 'lecture_3', 6)
 
 # print(student_1.calculating_av_grade())
-print(lecturer_1.calculating_av_grade())
+# print(lecturer_1.calculating_av_grade())
 
-# print(student_1.grades)
-# print(lecturer_1.grades)
-# print(reviewer_1.__dict__)
-# print(reviewer_2.__dict__)
-# print(lecturer_1.__dict__)
+
+print(student_1)
+print(lecturer_1)
+print(reviewer_1)
+
