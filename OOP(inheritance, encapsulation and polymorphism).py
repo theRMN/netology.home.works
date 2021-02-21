@@ -15,6 +15,12 @@ class Student:
         finished_courses = '\nЗавершенные курсы: ' + ', '.join(self.finished_courses)
         return name + surname + avg + courses_in_progress + finished_courses
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print(other.name, 'Не является студентом!')
+        else:
+            return self.calculating_av_grade() < other.calculating_av_grade()
+
     def add_courses_in_progress(self, course_name):
         self.courses_in_progress.append(course_name)
 
@@ -68,6 +74,12 @@ class Lecturer(Mentor):
         avg = '\nСредняя оценка за лекции: ' + str(self.calculating_av_grade())
         return name + surname + avg
 
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            print(other.name, 'Не является лектором!')
+        else:
+            return self.calculating_av_grade() < other.calculating_av_grade()
+
     def calculating_av_grade(self):
         avg_list = []
 
@@ -101,19 +113,18 @@ student_1.add_courses_in_progress('Python')
 student_1.add_courses_in_progress('Git')
 student_1.add_finished_courses('Введение в программирование')
 
-
 student_2 = Student('Elis', 'Smith', 'female')
 student_2.add_courses_in_progress('Введение в программирование')
 student_2.add_courses_in_progress('Python')
 student_2.add_finished_courses('Введение в программирование')
 
-lecturer_1 = Lecturer('Some', 'Body')
+lecturer_1 = Lecturer('Dan', 'Brody')
 lecturer_1.add_courses_attached('Python')
 
-lecturer_2 = Lecturer('Some', 'Body')
+lecturer_2 = Lecturer('Emma', 'Stone')
 lecturer_2.add_courses_attached('Git')
 
-reviewer_1 = Reviewer('Some', 'Buddy')
+reviewer_1 = Reviewer('Jack', 'Smith')
 reviewer_1.add_courses_attached('Python')
 
 reviewer_2 = Reviewer('Sean', 'Paul')
@@ -126,6 +137,10 @@ reviewer_2.rate_hw(student_1, 'Git', 8)
 reviewer_2.rate_hw(student_1, 'Git', 10)
 reviewer_2.rate_hw(student_1, 'Git', 4)
 
+reviewer_1.rate_hw(student_2, 'Python', 1)
+reviewer_1.rate_hw(student_2, 'Python', 9)
+reviewer_1.rate_hw(student_2, 'Python', 7)
+
 student_1.rate_lectures(lecturer_1, 'Python', 'lecture_1', 7)
 student_1.rate_lectures(lecturer_1, 'Python', 'lecture_2', 5)
 student_1.rate_lectures(lecturer_1, 'Python', 'lecture_3', 9)
@@ -134,11 +149,21 @@ student_2.rate_lectures(lecturer_1, 'Python', 'lecture_1', 9)
 student_2.rate_lectures(lecturer_1, 'Python', 'lecture_2', 2)
 student_2.rate_lectures(lecturer_1, 'Python', 'lecture_3', 6)
 
+student_1.rate_lectures(lecturer_2, 'Git', 'lecture_1', 7)
+student_1.rate_lectures(lecturer_2, 'Git', 'lecture_2', 5)
+student_1.rate_lectures(lecturer_2, 'Git', 'lecture_3', 9)
+
+# print(student_1)
+# print(lecturer_1)
+# print(reviewer_1)
+
 # print(student_1.calculating_av_grade())
+# print(student_2.calculating_av_grade())
+#
 # print(lecturer_1.calculating_av_grade())
+# print(lecturer_2.calculating_av_grade())
 
-
-print(student_1)
-print(lecturer_1)
-print(reviewer_1)
+# print(student_1 < student_2)
+# print(lecturer_1 < lecturer_2)
+# print(student_1 > lecturer_1)
 
