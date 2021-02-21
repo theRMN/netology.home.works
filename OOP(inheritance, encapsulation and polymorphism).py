@@ -29,6 +29,16 @@ class Student:
         else:
             print('Ошибка')
 
+    def calculating_av_grade(self):
+        avg_list = []
+
+        for x in self.grades.values():
+            avg_list += x
+
+        print(avg_list)
+        av_grades = sum(avg_list) / len(avg_list)
+        return av_grades
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -44,6 +54,16 @@ class Lecturer(Mentor):
     def __init__(self, *args):
         Mentor.__init__(self, *args)
         self.grades = {}
+
+    def calculating_av_grade(self):
+        avg_list = []
+
+        for x in self.grades.values():
+            avg_list += x
+
+        print(avg_list)
+        av_grades = sum(avg_list) / len(avg_list)
+        return av_grades
 
 
 class Reviewer(Mentor):
@@ -63,6 +83,7 @@ student_1.add_courses_in_progress('Python')
 student_1.add_courses_in_progress('Git')
 student_1.add_finished_courses('Введение в программирование')
 
+
 student_2 = Student('Elis', 'Smith', 'female')
 student_2.add_courses_in_progress('Введение в программирование')
 student_2.add_courses_in_progress('Python')
@@ -70,7 +91,9 @@ student_2.add_finished_courses('Введение в программирован
 
 lecturer_1 = Lecturer('Some', 'Body')
 lecturer_1.add_courses_attached('Python')
-lecturer_1.add_courses_attached('Git')
+
+lecturer_2 = Lecturer('Some', 'Body')
+lecturer_2.add_courses_attached('Git')
 
 
 reviewer_1 = Reviewer('Some', 'Buddy')
@@ -79,26 +102,25 @@ reviewer_1.add_courses_attached('Python')
 reviewer_2 = Reviewer('Sean', 'Paul')
 reviewer_2.add_courses_attached('Git')
 
-# reviewer_1.rate_hw(student_1, 'Python', 10)
-# reviewer_1.rate_hw(student_1, 'Python', 10)
-# reviewer_1.rate_hw(student_1, 'Python', 10)
-# reviewer_2.rate_hw(student_1, 'Git', 10)
-# reviewer_2.rate_hw(student_1, 'Git', 10)
-# reviewer_2.rate_hw(student_1, 'Git', 10)
+reviewer_1.rate_hw(student_1, 'Python', 5)
+reviewer_1.rate_hw(student_1, 'Python', 9)
+reviewer_1.rate_hw(student_1, 'Python', 7)
+reviewer_2.rate_hw(student_1, 'Git', 8)
+reviewer_2.rate_hw(student_1, 'Git', 10)
+reviewer_2.rate_hw(student_1, 'Git', 4)
+
+student_1.calculating_av_grade()
 
 student_1.rate_lectures(lecturer_1, 'Python', 'lecture_1', 10)
 student_1.rate_lectures(lecturer_1, 'Python', 'lecture_2', 10)
 student_1.rate_lectures(lecturer_1, 'Python', 'lecture_3', 10)
-student_1.rate_lectures(lecturer_1, 'Git', 'lecture_1', 10)
-student_1.rate_lectures(lecturer_1, 'Git', 'lecture_2', 10)
-student_1.rate_lectures(lecturer_1, 'Git', 'lecture_3', 10)
 
 student_2.rate_lectures(lecturer_1, 'Python', 'lecture_1', 10)
 student_2.rate_lectures(lecturer_1, 'Python', 'lecture_2', 10)
 student_2.rate_lectures(lecturer_1, 'Python', 'lecture_3', 10)
 
-# print(student_1.grades)
-print(lecturer_1.grades)
+print(student_1.grades)
+# print(lecturer_1.grades)
 # print(reviewer_1.__dict__)
 # print(reviewer_2.__dict__)
 # print(lecturer_1.__dict__)
