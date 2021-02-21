@@ -32,12 +32,11 @@ class Student:
     def calculating_av_grade(self):
         avg_list = []
 
-        for x in self.grades.values():
-            avg_list += x
+        for grade in self.grades.values():
+            avg_list += grade
 
-        print(avg_list)
         av_grades = sum(avg_list) / len(avg_list)
-        return av_grades
+        return round(av_grades, 1)
 
 
 class Mentor:
@@ -58,12 +57,12 @@ class Lecturer(Mentor):
     def calculating_av_grade(self):
         avg_list = []
 
-        for x in self.grades.values():
-            avg_list += x
+        for l_grades in self.grades.values():
+            for grade in l_grades.values():
+                avg_list += grade
 
-        print(avg_list)
         av_grades = sum(avg_list) / len(avg_list)
-        return av_grades
+        return round(av_grades, 1)
 
 
 class Reviewer(Mentor):
@@ -109,17 +108,18 @@ reviewer_2.rate_hw(student_1, 'Git', 8)
 reviewer_2.rate_hw(student_1, 'Git', 10)
 reviewer_2.rate_hw(student_1, 'Git', 4)
 
-student_1.calculating_av_grade()
+student_1.rate_lectures(lecturer_1, 'Python', 'lecture_1', 7)
+student_1.rate_lectures(lecturer_1, 'Python', 'lecture_2', 5)
+student_1.rate_lectures(lecturer_1, 'Python', 'lecture_3', 9)
 
-student_1.rate_lectures(lecturer_1, 'Python', 'lecture_1', 10)
-student_1.rate_lectures(lecturer_1, 'Python', 'lecture_2', 10)
-student_1.rate_lectures(lecturer_1, 'Python', 'lecture_3', 10)
+student_2.rate_lectures(lecturer_1, 'Python', 'lecture_1', 9)
+student_2.rate_lectures(lecturer_1, 'Python', 'lecture_2', 2)
+student_2.rate_lectures(lecturer_1, 'Python', 'lecture_3', 6)
 
-student_2.rate_lectures(lecturer_1, 'Python', 'lecture_1', 10)
-student_2.rate_lectures(lecturer_1, 'Python', 'lecture_2', 10)
-student_2.rate_lectures(lecturer_1, 'Python', 'lecture_3', 10)
+# print(student_1.calculating_av_grade())
+print(lecturer_1.calculating_av_grade())
 
-print(student_1.grades)
+# print(student_1.grades)
 # print(lecturer_1.grades)
 # print(reviewer_1.__dict__)
 # print(reviewer_2.__dict__)
