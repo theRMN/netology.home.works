@@ -1,3 +1,21 @@
+def calculating_av_course(item_list, course):
+    avg_list = []
+
+    for item in item_list:
+        if isinstance(item, Student) and course in item.courses_in_progress:
+            avg_list.append(item.calculating_av_grade(course))
+
+        elif isinstance(item, Lecturer) and course in item.courses_attached:
+            avg_list.append(item.calculating_av_grade(course))
+
+        else:
+            print(item.name, 'не имеет отношения к курсу:', course)
+
+    av_grades = sum(avg_list) / len(avg_list)
+
+    return round(av_grades, 1)
+
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -43,11 +61,15 @@ class Student:
         else:
             print('Ошибка')
 
-    def calculating_av_grade(self):
+    def calculating_av_grade(self, course=''):
         avg_list = []
 
-        for grade in self.grades.values():
-            avg_list += grade
+        if course == '':
+            for grade in self.grades.values():
+                avg_list += grade
+        else:
+            for grade in self.grades[course]:
+                avg_list.append(grade)
 
         av_grades = sum(avg_list) / len(avg_list)
         return round(av_grades, 1)
@@ -80,11 +102,15 @@ class Lecturer(Mentor):
         else:
             return self.calculating_av_grade() < other.calculating_av_grade()
 
-    def calculating_av_grade(self):
+    def calculating_av_grade(self, course=''):
         avg_list = []
 
-        for l_grades in self.grades.values():
-            for grade in l_grades.values():
+        if course == '':
+            for l_grades in self.grades.values():
+                for grade in l_grades.values():
+                    avg_list += grade
+        else:
+            for grade in self.grades[course].values():
                 avg_list += grade
 
         av_grades = sum(avg_list) / len(avg_list)
@@ -120,6 +146,7 @@ student_2.add_finished_courses('Введение в программирован
 
 lecturer_1 = Lecturer('Dan', 'Brody')
 lecturer_1.add_courses_attached('Python')
+lecturer_1.add_courses_attached('Git')
 
 lecturer_2 = Lecturer('Emma', 'Stone')
 lecturer_2.add_courses_attached('Git')
@@ -153,13 +180,17 @@ student_1.rate_lectures(lecturer_2, 'Git', 'lecture_1', 7)
 student_1.rate_lectures(lecturer_2, 'Git', 'lecture_2', 5)
 student_1.rate_lectures(lecturer_2, 'Git', 'lecture_3', 9)
 
+student_1.rate_lectures(lecturer_1, 'Git', 'lecture_1', 9)
+student_1.rate_lectures(lecturer_1, 'Git', 'lecture_2', 9)
+student_1.rate_lectures(lecturer_1, 'Git', 'lecture_3', 9)
+
 # print(student_1)
 # print(lecturer_1)
 # print(reviewer_1)
 
 # print(student_1.calculating_av_grade())
 # print(student_2.calculating_av_grade())
-#
+
 # print(lecturer_1.calculating_av_grade())
 # print(lecturer_2.calculating_av_grade())
 
@@ -167,3 +198,8 @@ student_1.rate_lectures(lecturer_2, 'Git', 'lecture_3', 9)
 # print(lecturer_1 < lecturer_2)
 # print(student_1 > lecturer_1)
 
+x = [student_1, student_2]
+y = [lecturer_1, lecturer_2]
+
+# print(calculating_av_course(x, 'Python'))
+# print(calculating_av_course(y, 'Git'))
