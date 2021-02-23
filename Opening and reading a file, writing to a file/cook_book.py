@@ -20,6 +20,30 @@ cook_book = {
 }
 
 
+def show_dish_list(dishes=cook_book):
+    dish_list = []
+    new_dishes = {}
+
+    print('Доступные блюда:\n================')
+
+    for dish_name in enumerate(dishes, 1):
+        dish_list += ([dish_name[0]] + [dish_name[1]])
+        print(str(dish_name[0]) + '.', dish_name[1])
+
+    user_choice_list = input('================\nВыберите блюдо: ').split(', ')
+
+
+    for user_choice in user_choice_list:
+        if user_choice in dish_list:
+            for dish in dishes.items():
+                if user_choice == dish[0]:
+                    new_dishes[dish[0]] = dish[1]
+        else:
+            return dishes
+
+    return new_dishes
+
+
 def get_shop_list_by_dishes(dishes, number_of_person=1):
     resulted = {}
 
@@ -34,8 +58,16 @@ def get_shop_list_by_dishes(dishes, number_of_person=1):
                 resulted[values[0]][keys[1]] += ingredient_count
                 continue
             resulted[values[0]] = {keys[1]: ingredient_count, keys[2]: values[2]}
+    print('================\nИнгридиенты для выбранных блюд:\n================')
+    return pprint(resulted)
 
-    return resulted
+
+def program():
+    x = show_dish_list()
+
+    user_input = int(input('================\nВведите количество персон: '))
+
+    get_shop_list_by_dishes(x, user_input)
 
 
-pprint(get_shop_list_by_dishes(cook_book, 2))
+program()
