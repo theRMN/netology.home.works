@@ -20,7 +20,10 @@ cook_book = {
 }
 
 
-def show_dish_list(dishes=cook_book):
+def show_dish_list(dishes=None):
+    if dishes is None:
+        dishes = cook_book
+
     dish_list = []
     new_dishes = {}
 
@@ -31,7 +34,6 @@ def show_dish_list(dishes=cook_book):
         print(str(dish_name[0]) + '.', dish_name[1])
 
     user_choice_list = input('================\nВыберите блюдо: ').split(', ')
-
 
     for user_choice in user_choice_list:
         if user_choice in dish_list:
@@ -54,11 +56,15 @@ def get_shop_list_by_dishes(dishes, number_of_person=1):
             keys += Ingredients_dict.keys()
             values += Ingredients_dict.values()
             ingredient_count = values[1] * number_of_person
+
             if values[0] in resulted.keys():
                 resulted[values[0]][keys[1]] += ingredient_count
                 continue
+
             resulted[values[0]] = {keys[1]: ingredient_count, keys[2]: values[2]}
+
     print('================\nИнгридиенты для выбранных блюд:\n================')
+
     return pprint(resulted)
 
 
