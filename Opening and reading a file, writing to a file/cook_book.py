@@ -32,6 +32,7 @@ def making_cook_book():
             count -= 1
     return cook_book
 
+
 # cook_book = {
 #     'Омлет': [
 #         {'ingredient_name': 'Яйцо', 'quantity': 2, 'measure': 'шт.'},
@@ -59,7 +60,7 @@ def show_dish_list(dishes=None):
     dish_list = []
     new_dishes = {}
 
-    print('Доступные блюда:\n================')
+    # print('Доступные блюда:\n================')
 
     for dish_name in enumerate(dishes, 1):
         dish_list += ([dish_name[0]] + [dish_name[1]])
@@ -87,7 +88,7 @@ def get_shop_list_by_dishes(dishes, number_of_person=1):
             values = []
             keys += Ingredients_dict.keys()
             values += Ingredients_dict.values()
-            ingredient_count = values[1] * number_of_person
+            ingredient_count = int(values[1]) * number_of_person
 
             if values[0] in resulted.keys():
                 resulted[values[0]][keys[1]] += ingredient_count
@@ -106,6 +107,5 @@ def program():
     user_input = int(input('================\nВведите количество персон: '))
 
     get_shop_list_by_dishes(x, user_input)
-
 
 program()
