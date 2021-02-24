@@ -3,20 +3,21 @@ from pprint import pprint
 
 def making_cook_book():
     with open('recipes.txt', 'r', encoding='utf-8') as f:
-        cook_book = {}
-        ingredient_list = []
-        x = []
-        count = 4
+        line_list = []
+        count = 0
 
         for line in f:
             try:
                 line = int(line)
-                x.append(line)
-                count = len(x)
+                line_list.append(line)
+                count = len(line_list)
             except:
                 continue
 
     with open('recipes.txt', 'r', encoding='utf-8') as f:
+        cook_book = {}
+        ingredient_list = []
+
         while count > 0:
             dish_name = f.readline().strip()
             ingredient_count = int(f.readline().strip())
@@ -30,27 +31,8 @@ def making_cook_book():
             ingredient_list = []
             f.readline().strip()
             count -= 1
+
     return cook_book
-
-
-# cook_book = {
-#     'Омлет': [
-#         {'ingredient_name': 'Яйцо', 'quantity': 2, 'measure': 'шт.'},
-#         {'ingredient_name': 'Молоко', 'quantity': 100, 'measure': 'мл'},
-#         {'ingredient_name': 'Помидор', 'quantity': 6, 'measure': 'шт'}
-#     ],
-#     'Утка по-пекински': [
-#         {'ingredient_name': 'Утка', 'quantity': 1, 'measure': 'шт'},
-#         {'ingredient_name': 'Вода', 'quantity': 2, 'measure': 'л'},
-#         {'ingredient_name': 'Мед', 'quantity': 3, 'measure': 'ст.л'},
-#         {'ingredient_name': 'Соевый соус', 'quantity': 60, 'measure': 'мл'}
-#     ],
-#     'Запеченный картофель': [
-#         {'ingredient_name': 'Картофель', 'quantity': 1, 'measure': 'кг'},
-#         {'ingredient_name': 'Чеснок', 'quantity': 3, 'measure': 'зубч'},
-#         {'ingredient_name': 'Помидор', 'quantity': 4, 'measure': 'шт'},
-#     ]
-# }
 
 
 def show_dish_list(dishes=None):
@@ -60,11 +42,13 @@ def show_dish_list(dishes=None):
     dish_list = []
     new_dishes = {}
 
-    # print('Доступные блюда:\n================')
+    print('Доступные блюда:\n================')
 
     for dish_name in enumerate(dishes, 1):
         dish_list += ([dish_name[0]] + [dish_name[1]])
         print(str(dish_name[0]) + '.', dish_name[1])
+
+    print('================\nДля выбора всех доступных блюд, нажмите "Enter"')
 
     user_choice_list = input('================\nВыберите блюдо: ').split(', ')
 
@@ -104,8 +88,14 @@ def get_shop_list_by_dishes(dishes, number_of_person=1):
 def program():
     x = show_dish_list()
 
-    user_input = int(input('================\nВведите количество персон: '))
+    user_input = input('================\nВведите количество персон: ')
+    try:
+        user_input = int(user_input)
+    except ValueError:
+        print('================\nОшибка! Количество персон не может быть:', user_input)
+        quit()
 
     get_shop_list_by_dishes(x, user_input)
+
 
 program()
