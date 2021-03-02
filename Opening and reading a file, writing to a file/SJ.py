@@ -1,4 +1,3 @@
-from pprint import pprint
 import os
 
 
@@ -61,6 +60,3 @@ def recording_txt(t):
 
 
 recording_txt(reading_sorting())
-
-
-
