@@ -23,10 +23,10 @@ def calculating_iq(parsing=None):
     if parsing is None:
         parsing = parsing_iq()
 
-    for i in parsing.items():
-        for o in i[1].items():
-            if o[1] == i[0]:
-                print(f'Superhero with maximum iq is: "{o[0]}"')
+    for intelligence_dict in parsing.items():
+        for item in intelligence_dict[1].items():
+            if item[1] == intelligence_dict[0]:
+                print(f'Superhero with maximum iq is: "{item[0]}"')
 
 
 calculating_iq()
